@@ -11,7 +11,10 @@ module NestedResources
       @given = {}
       resources = [] if resources.blank?
       resources = [resources] if resources.class != Array
-      @resources  = resources.map{|v| v.to_sym }
+      @resources  = resources.map{|v|
+        v = v.to_s.underscore if v.is_a?(Class)
+        v.to_sym
+      }
       params.each { |k,v|
         @resources.each{|resource|
           key = (resource.to_s+"_id").to_sym
@@ -48,11 +51,16 @@ module NestedResources
       result
     end
 
+    alias_method :resource, :object
+    alias_method :resources, :object
+
     def instance(name)
+      name = name.to_s.underscore if name.is_a?(Class)
       @given[name.to_sym]
     end
 
     def exists?(name)
+      name = name.to_s.underscore if name.is_a?(Class)
       !!@given[name.to_sym]
     end
 

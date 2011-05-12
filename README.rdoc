@@ -9,28 +9,36 @@ Your app has routes like this.
  end
 
 In Items controller.
-You can write like this.
+You can write controller like this.
 
  class Admin::ItemsController < ApplicationController
-   nested_controller :user
+   nested_controller :user # nested resource
 
    def index
-     nested.path(admin_items_path) # => /admin/users/1/items
+     @domains = @nested.instance(User).domains # find nested resource instance
+   
+     respond_to do |format|
+       format.html # index.html.erb
+       format.xml  { render :xml => @domains }
+     end
    end
+  
+ ...
+  
  end
 
 In views.
 
- <%= nested.path(admin_items_path) %>
+ <%= nested.path(admin_item_path(@item)) %> # => "/admin/users/1/item"
 
 In form view.
 
- <%= form_for(nested.object([:admin,@domain])) do |f| %>
+ <%= form_for(nested.object([:admin,@item])) do |f| %> => [:admin, @user, @item]
    ...
  <% end %> 
 
+= Install
 
-
-
+= TIPS
 
 This project rocks and uses MIT-LICENSE.
