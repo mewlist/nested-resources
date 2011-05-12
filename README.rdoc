@@ -1,0 +1,36 @@
+= nested-resources
+
+Your app has routes like this.
+
+ namespace :admin do
+   resources :users do
+     resources :items
+   end
+ end
+
+In Items controller.
+You can write like this.
+
+ class Admin::ItemsController < ApplicationController
+   nested_controller :user
+
+   def index
+     nested.path(admin_items_path) # => /admin/users/1/items
+   end
+ end
+
+In views.
+
+ <%= nested.path(admin_items_path) %>
+
+In form view.
+
+ <%= form_for(nested.object([:admin,@domain])) do |f| %>
+   ...
+ <% end %> 
+
+
+
+
+
+This project rocks and uses MIT-LICENSE.
