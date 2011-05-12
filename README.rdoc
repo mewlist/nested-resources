@@ -33,7 +33,7 @@ In views.
 
 In form view.
 
- <%= form_for(nested.object([:admin,@item])) do |f| %> => [:admin, @user, @item]
+ <%= form_for(nested.resources([:admin,@item])) do |f| %> => [:admin, @user, @item]
    ...
  <% end %> 
 
