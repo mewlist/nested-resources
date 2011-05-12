@@ -39,6 +39,14 @@ In form view.
 
 = Install
 
+Add to Gemfile
+
+ gem 'nested-resources'
+
+Run bundle install
+
+ bundle install
+
 = TIPS
 
 This project rocks and uses MIT-LICENSE.
