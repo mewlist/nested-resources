@@ -15,7 +15,7 @@ You can write controller like this.
    nested_controller :user # nested resource
 
    def index
-     @domains = @nested.instance(User).domains # find nested resource instance
+     @domains = nested.instance(User).domains # find nested resource instance
    
      respond_to do |format|
        format.html # index.html.erb
