@@ -4,8 +4,18 @@ require 'action_view'
 module NestedResources
   require 'nested-resources/nested-resources'
   module NestedResourcesHelper
-    def nested
-      @nested
+    def nested(obj = nil)
+      if obj.is_a?(Class)
+        @nested.instance(obj)
+      elsif obj
+        @nested.path(obj)
+      else
+        @nested
+      end
+    end
+
+    def nested?(obj)
+      @nested.exists?(obj)
     end
   end
 end
@@ -15,7 +25,7 @@ module ActionView::Helpers
 end
 
 class ActionController::Base
-  attr_reader :nested
+  include NestedResources::NestedResourcesHelper
   before_filter :nested_resources_filter
 
   def self.nested_resources(*resources)

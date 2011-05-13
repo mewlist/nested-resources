@@ -2,20 +2,19 @@
 
 Your app has routes like this.
 
- namespace :admin do
-   resources :users do
-     resources :items
-   end
+ resources :users do
+   resources :items
  end
 
 In Items controller.
 You can write controller like this.
 
- class Admin::ItemsController < ApplicationController
+ class ItemsController < ApplicationController
    nested_controller :user # nested resource
 
    def index
-     @domains = nested.instance(User).domains # find nested resource instance
+     @user = nested(User) # find nested resource instance
+     @domains = @user.domains 
    
      respond_to do |format|
        format.html # index.html.erb
@@ -29,11 +28,11 @@ You can write controller like this.
 
 In views.
 
- <%= nested.path(admin_item_path(@item)) %> # => "/admin/users/1/item"
+ <%= nested(item_path(@item)) %> # => "/users/1/item"
 
 In form view.
 
- <%= form_for(nested.resources([:admin,@item])) do |f| %> => [:admin, @user, @item]
+ <%= form_for(nested(@item)) do |f| %> => [@user, @item]
    ...
  <% end %> 
 
@@ -48,5 +47,15 @@ Run bundle install
  bundle install
 
 = TIPS
+
+Has nested path?
+
+ nested? User
+ => true or false
+
+Deep nested resources like /users/1/items/2/comments
+
+ nested_resources [:user, :item]
+
 
 This project rocks and uses MIT-LICENSE.
