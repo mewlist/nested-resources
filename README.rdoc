@@ -10,7 +10,7 @@ In Items controller.
 You can write controller like this.
 
  class ItemsController < ApplicationController
-   nested_controller :user # nested resource
+   nested_resources :user # nested resource
 
    def index
      @user = nested(User) # find nested resource instance
