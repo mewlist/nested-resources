@@ -57,7 +57,7 @@ module NestedResources
 
     def instance(name)
       name = name.to_s.underscore if name.is_a?(Class)
-      @given[name.to_sym] ||= eval(name.to_s.camelize).find(@given_id[name.to_sym])
+      @given[name.to_sym] ||= name.to_s.camelize.constantize.find(@given_id[name.to_sym])
     end
 
     def exists?(name)
