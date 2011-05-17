@@ -24,7 +24,7 @@ module NestedResources
       if resource.is_a?(Array)
         resource.each{|v| parse(v) }
       elsif resource.is_a?(Hash)
-        resource.each{|k, v| @resources[k.to_sym] = v.to_sym}
+        resource.each{|k, v| @resources[k.to_sym] = (v.to_s.underscore+"_id").to_sym}
       else
         @resources[resource.to_sym] = (resource.to_s.underscore+"_id").to_sym
       end
