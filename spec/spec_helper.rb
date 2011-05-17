@@ -5,6 +5,8 @@ require 'nested-resources'
 
 class Parent 
 end
+class Child
+end
 class Model
 end
 

@@ -6,16 +6,18 @@ module NestedResources
   module NestedResourcesHelper
     def nested(obj = nil)
       if obj.is_a?(Class)
-        @nested.instance(obj)
+        @nested_resources.instance(obj)
+      elsif obj.is_a?(String)
+        @nested_resources.path(obj)
       elsif obj
-        @nested.path(obj)
+        @nested_resources.resources(obj)
       else
-        @nested
+        @nested_resources
       end
     end
 
     def nested?(obj)
-      @nested.exists?(obj)
+      @nested_resources.exists?(obj)
     end
   end
 end
@@ -35,7 +37,7 @@ class ActionController::Base
   def nested_resources_filter
     resources = self.class.read_inheritable_attribute(:nested_resources)
     return if resources.blank?
-    @nested = NestedResources::NestedResources.new(params, resources)
+    @nested_resources = NestedResources::NestedResources.new(params, resources)
   end
 
 end
