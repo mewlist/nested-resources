@@ -13,8 +13,8 @@ You can write controller like this.
    nested_resources :user # nested resource
 
    def index
-     @user = nested(User) # find nested resource instance
-     @domains = @user.domains 
+     @user = nested.instance(User) # find nested resource instance
+     @items = @user.items
    
      respond_to do |format|
        format.html # index.html.erb
@@ -32,7 +32,7 @@ In views.
 
 In form view.
 
- <%= form_for(nested(@item)) do |f| %> => [@user, @item]
+ <%= form_for(nested.resource(@item)) do |f| %> => [@user, @item]
    ...
  <% end %> 
 
@@ -50,12 +50,20 @@ Run bundle install
 
 Has nested path?
 
- nested? User
+ nested?(:user)
  => true or false
 
 Deep nested resources like /users/1/items/2/comments
 
  nested_resources [:user, :item]
+
+Recursive resources
+
+ resources :users, :as => "parents" do
+   resources :users
+ end
+
+ nested_resources :user => :parent
 
 
 This project rocks and uses MIT-LICENSE.
