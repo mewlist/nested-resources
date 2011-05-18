@@ -69,7 +69,7 @@ describe NestedResources::NestedResources do
 
   describe "Resources decleared :as" do
     before do
-      @nested = NestedResources::NestedResources.new({:controller=>'models', :child_id=>2, :father_id=>1}, {:parent => :father_id}, :child)
+      @nested = NestedResources::NestedResources.new({:controller=>'models', :child_id=>2, :father_id=>1}, {:parent => :father}, :child)
       @parent = Parent.new
       @child  = Child.new
       @model  = Model.new
