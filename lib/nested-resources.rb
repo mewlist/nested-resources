@@ -22,9 +22,11 @@ module NestedResources
   end
 end
 
-module ActionView::Helpers
+module NestedResourcesHelper
   include NestedResources::NestedResourcesHelper
 end
+
+ActionView::Base.send(:include, NestedResourcesHelper)
 
 class ActionController::Base
   include NestedResources::NestedResourcesHelper
